@@ -18,12 +18,25 @@ export const TodoItem: React.FC<TodoItemProps> = ({ todo, onToggle, onDelete }) 
           className={styles.checkbox}
           id={`todo-${todo.id}`}
         />
-        <label
-          htmlFor={`todo-${todo.id}`}
-          className={`${styles.text} ${todo.completed ? styles.completed : ''}`}
-        >
-          {todo.text}
-        </label>
+        <div className={styles.textContainer}>
+          <label
+            htmlFor={`todo-${todo.id}`}
+            className={`${styles.text} ${todo.completed ? styles.completed : ''}`}
+          >
+            {todo.title}
+          </label>
+          {todo.description && <p className={styles.description}>{todo.description}</p>}
+          <div className={styles.metadata}>
+            <span className={styles.date}>
+              Created: {new Date(todo.createdAt).toLocaleDateString()}
+            </span>
+            {todo.completedAt && (
+              <span className={styles.date}>
+                Completed: {new Date(todo.completedAt).toLocaleDateString()}
+              </span>
+            )}
+          </div>
+        </div>
       </div>
       <button
         onClick={() => onDelete(todo.id)}
